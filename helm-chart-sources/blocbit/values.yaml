@@ -1,4 +1,4 @@
-# Default values for sampleapp.
+# Default values for blocbit.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 fullnameOverride: blocbit
@@ -16,13 +16,14 @@ imagePullSecrets: []
   # - name: myRegistryKeySecretName
 service:
   port: 80
+  tport: 8105
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
   path: /
-  hostname: VALUE_TO_BE_OVERRIDDEN
+  hostname: app.blocbit.org
 
 secrets: {}
   # Optionally specify a set of secret objects whose values
