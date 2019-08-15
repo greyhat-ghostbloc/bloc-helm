@@ -44,5 +44,9 @@ steps:
    git push origin HEAD:develop
   displayName: 'Git Commit & Push'
 
-
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.Repository.LocalPath)'
+    ArtifactName: '$(projectName)-$(Build.BuildNumber)'
+    publishLocation: 'Container'
 
