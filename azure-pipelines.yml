@@ -32,7 +32,7 @@ steps:
 
 - bash: |
    git add .
-   git commit -a -m "Helm add $(projectName)-$(major).$(minor).$(build.buildId)" 
+   git commit -a -m "Helm add $(projectName)-$(major).$(minor).$(rev:r)" 
    git push origin HEAD:master
   displayName: 'Git Commit & Push'
 
