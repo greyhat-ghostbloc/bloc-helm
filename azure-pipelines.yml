@@ -6,12 +6,19 @@ variables:
 name: $(major).$(minor).$(rev:r)
 
 trigger:
-- develop
+  branches:
+    include:
+      - develop
 
 pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- checkout: self
+  clean: true
+  persistCredentials: true
+
 - task: HelmInstaller@0
   displayName: 'Install Helm 2.14.1'
 
