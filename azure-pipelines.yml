@@ -38,10 +38,9 @@ steps:
 - bash: |
    git config --global user.email "greyhat-ghostbloc@protonmail.com"
    git config --global user.name "greyhat-ghostbloc"
-   git pull origin master 
    git add .
    git commit -a -m "Helm add $(projectName)-$(Build.BuildNumber)" 
-   git push origin HEAD:master
+   git push 
   displayName: 'Git Commit & Push'
 
 
