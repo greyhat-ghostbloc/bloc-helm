@@ -1,7 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# Helm Chart pipeline
 
 trigger:
 - develop
@@ -10,10 +7,29 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: HelmInstaller@0
+  displayName: 'Install Helm 2.14.1'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: HelmDeploy@0
+  displayName: 'helm package'
+  inputs:
+    azureSubscription: 'Microsoft Partner Network(b1dfc4a0-9bf6-4a23-8171-9495aab6a878)'
+    command: package
+    chartPath: 'helm-chart-sources/blocbit'
+    chartVersion: '$(major).$(minor).$(build.buildId)'
+    destination: '$(Build.Repository.LocalPath)'
+
+- bash: |
+   git config --global user.email "greyhat-ghostbloc@protonmail.com"
+   git config --global user.name "greyhat-ghostbloc"
+   helm repo index --url https://greyhat-ghostbloc.github.io/bloc-helm/ --merge $(Build.Repository.LocalPath)/index.yaml $(Build.Repository.LocalPath)
+  displayName: 'Update Helm Charts Repo'
+
+- bash: |
+   git add .
+   git commit -a -m "Helm add $(projectName)-$(major).$(minor).$(build.buildId)" 
+   git push origin HEAD:master
+  displayName: 'Git Commit & Push'
+
+
+
