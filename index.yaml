@@ -21,6 +21,15 @@ entries:
     version: 0.1.94
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2019-08-15T07:41:11.81536362Z"
+    description: A Helm chart for blocbit
+    digest: d249367c756556f874a9151c38089146d8af7028afe8d34b076924db4a87b271
+    name: blocbit
+    urls:
+    - https://greyhat-ghostbloc.github.io/bloc-helm/blocbit-0.0.107.tgz
+    version: 0.0.107
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2019-08-15T07:25:55.240615857Z"
     description: A Helm chart for blocbit
     digest: 652e072f697b0ce5be5f0af62c38da477c9091769732d6bf40a477c562baacfd
@@ -46,4 +55,4 @@ entries:
     urls:
     - https://greyhat-ghostbloc.github.io/bloc-helm/blocbit-0.0.1.tgz
     version: 0.0.1
-generated: "2019-08-15T07:25:55.240186249Z"
+generated: "2019-08-15T07:41:11.814855505Z"
