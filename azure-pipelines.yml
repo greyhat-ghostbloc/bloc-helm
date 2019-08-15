@@ -40,7 +40,7 @@ steps:
    git config --global user.name "greyhat-ghostbloc"
    git add .
    git commit -a -m "Helm add $(projectName)-$(Build.BuildNumber)" 
-   git push 
+   git push origin HEAD:develop
   displayName: 'Git Commit & Push'
 
 
