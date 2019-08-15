@@ -32,12 +32,13 @@ steps:
     destination: '$(Build.Repository.LocalPath)'
 
 - bash: |
-   git config --global user.email "greyhat-ghostbloc@protonmail.com"
-   git config --global user.name "greyhat-ghostbloc"
    helm repo index --url https://greyhat-ghostbloc.github.io/bloc-helm/ --merge $(Build.Repository.LocalPath)/index.yaml $(Build.Repository.LocalPath)
   displayName: 'Update Helm Charts Repo'
 
 - bash: |
+   git config --global user.email "greyhat-ghostbloc@protonmail.com"
+   git config --global user.name "greyhat-ghostbloc"
+   git pull origin master 
    git add .
    git commit -a -m "Helm add $(projectName)-$(Build.BuildNumber)" 
    git push origin HEAD:master
