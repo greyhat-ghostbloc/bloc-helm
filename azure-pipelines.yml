@@ -1,0 +1,48 @@
+# Helm Chart pipeline
+
+variables:
+- group: Version Control
+
+name: $(major).$(minor).$(rev:r)
+
+trigger:
+  branches:
+    include:
+      - develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- checkout: self
+  clean: true
+  persistCredentials: true
+
+- task: HelmInstaller@0
+  displayName: 'Install Helm 2.14.1'
+
+- task: HelmDeploy@0
+  displayName: 'helm package'
+  inputs:
+    azureSubscription: 'Microsoft Partner Network(b1dfc4a0-9bf6-4a23-8171-9495aab6a878)'
+    command: package
+    chartPath: 'helm-chart-sources/blocbit'
+    chartVersion: '$(Build.BuildNumber)'
+    destination: '$(Build.Repository.LocalPath)'
+
+- bash: |
+   helm repo index --url https://greyhat-ghostbloc.github.io/bloc-helm/ --merge $(Build.Repository.LocalPath)/index.yaml $(Build.Repository.LocalPath)
+  displayName: 'Update Helm Charts Repo'
+
+- bash: |
+   git config --global user.email "greyhat-ghostbloc@protonmail.com"
+   git config --global user.name "greyhat-ghostbloc"
+   git pull origin master 
+   git add .
+   git commit -a -m "Helm add $(projectName)-$(Build.BuildNumber)" 
+   git push origin HEAD:master
+  displayName: 'Git Commit & Push'
+
+
+
