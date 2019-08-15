@@ -28,7 +28,7 @@ steps:
     azureSubscription: 'Microsoft Partner Network(b1dfc4a0-9bf6-4a23-8171-9495aab6a878)'
     command: package
     chartPath: 'helm-chart-sources/blocbit'
-    chartVersion: '$(major).$(minor).$(build.buildId)'
+    chartVersion: '$(major).$(minor).$(rev:r)'
     destination: '$(Build.Repository.LocalPath)'
 
 - bash: |
